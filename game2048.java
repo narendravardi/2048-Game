@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 
 /*
  * basically endUp() and endDown() are same
+ * as long as we can transpose the matrix
  * endRight() and endLeft() are also same
  * create functions like endLeft() 
  * endRight() endUp() and endBottom()
