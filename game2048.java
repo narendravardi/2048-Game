@@ -1,4 +1,6 @@
-//developed by Vardi Narendra
+/**
+ * @author Narendra Vardi
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
