@@ -11,7 +11,15 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+/*
+IMPORTANT NOTICE IF YOU ARE TYRING TO UNDERSTAND THE CODE
 
+- First understand how mergeleft and mergeright are working
+- Why did I say that endup() and enddown() are same (try using transpose of a matrix property)
+- Few bugs are there while checking individual endup(), endright(), endUp() and endBottom() , but the isend() works fine
+- No advanced concepts are used. Basic swings are used. But, should keep track of function calls, in order to understand it properly.
+- get to know about the JLabel and layout options in swings.
+*/
 /*
  * basically endUp() and endDown() are same
  * as long as we can transpose the matrix
@@ -25,11 +33,13 @@ import javax.swing.JLabel;
  * 
  */
 public class game2048 extends JFrame implements KeyListener {
-	JLabel[][] label = new JLabel[4][4];
-	int[][] value = new int[4][4];
-	Random r = new Random();
+	JLabel[][] label = new JLabel[4][4];//This is used to display the message
+	int[][] value = new int[4][4];//the logical implementation is done with the help this 2-D array
+	Random r = new Random(); 
 
 	public int return2or4(boolean b) {
+		/*we generate the random boolean if it is 1 return 2 to pop up else 4 to pop up new element after 
+		a key event */
 		if (b)
 			return 2;
 		else
@@ -37,6 +47,8 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public game2048() {
+		//In this function the swing properties has been defined.
+		//you are most welcome to play with these
 		setTitle("Play 2048 Game");
 		setSize(400, 400);
 		setLayout(new GridLayout(4, 4));
@@ -48,7 +60,7 @@ public class game2048 extends JFrame implements KeyListener {
 				value[i][j] = 0;
 				add(label[i][j]);
 				label[i][j].setBorder(BorderFactory.createLineBorder(
-						Color.GRAY, 1));
+						Color.GRAY, 1));//adding border to the JLabels
 
 			}
 		}
@@ -61,13 +73,16 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public String str(int a) {
+		//return string value of an integer to display on the JLabel
 		if (a != 0)
 			return Integer.toString(a);
 		else
 			return "";
+		
 	}
 
 	public void display() {
+		//basic display function
 		int i, j;
 		for (i = 0; i < 4; i++) {
 			for (j = 0; j < 4; j++) {
@@ -77,10 +92,11 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent ke) {
+		//handling key events
 		int key = ke.getKeyCode();
 		switch (key) {
 		case KeyEvent.VK_UP:
-			checkSuccess();
+			checkSuccess();//checks if game is own 
 			if (!isEnd())
 				moveUp();
 			else
@@ -113,6 +129,7 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public void gameOver() {
+		//game is over when we are unable to merge any two elements and when there is no empty block 
 		setTitle(":(");
 		String str = "    GAMEOVER    ";
 		for (int i = 0; i < str.length(); i++) {
@@ -130,6 +147,8 @@ public class game2048 extends JFrame implements KeyListener {
 
 	public void moveLeft() {
 		// moving to left using queue
+		
+		
 		if (endLeft())
 			return;
 
@@ -293,6 +312,7 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public void mergeLeft() {
+		//starts from left and merges when two beside elements are equal and shifts all elements to left when merging happens
 		int i, j;
 		for (i = 0; i < 4; i++) {
 
@@ -312,7 +332,7 @@ public class game2048 extends JFrame implements KeyListener {
 	}
 
 	public boolean endLeft() {
-
+		//checking if we are unable to merge anything and check if no block is available to generate a new 2 or 4
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (value[i][j] == 0)
@@ -332,6 +352,7 @@ public class game2048 extends JFrame implements KeyListener {
 			}
 		}
 		return true;
+		
 	}
 
 	public boolean endRight() {
